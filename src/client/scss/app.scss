@@ -1,0 +1,11 @@
+@tailwind preflight;
+
+@import 'variables';
+
+@tailwind utilities;
+
+html, body {
+  margin: 0;
+  background-color: config('colors.grey-lighter');
+  font-family: 'Roboto', sans-serif;
+}

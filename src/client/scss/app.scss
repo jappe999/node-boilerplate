@@ -1,8 +1,6 @@
 @tailwind preflight;
-
-@import 'variables';
-
 @tailwind utilities;
+@import 'variables';
 
 html, body {
   margin: 0;

@@ -4,4 +4,8 @@ export default class Controller {
     this.res = res
     this.options = options
   }
+
+  error(errorCode, errorMessage) {
+    this.res.status(errorCode).send(errorMessage)
+  }
 }

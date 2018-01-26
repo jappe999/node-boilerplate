@@ -10,6 +10,10 @@ var _database = require('../helpers/database.js');
 
 var _database2 = _interopRequireDefault(_database);
 
+var _assert = require('assert');
+
+var _assert2 = _interopRequireDefault(_assert);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19,24 +23,56 @@ var Model = function () {
     _classCallCheck(this, Model);
 
     this.db = new _database2.default();
-
-    this.collection = this.db.collection(this.collectionName);
+    this.collectionName = '';
   }
 
   _createClass(Model, [{
     key: 'all',
     value: function all() {
-      this.collection;
-    }
-  }, {
-    key: 'insert',
-    value: function insert(items) {
       var _this = this;
 
       return new Promise(function (resolve, reject) {
         try {
-          _this.collection.insertMany(items, function (err, result) {
-            assert.equal(err, null);
+          _this.db.connect(function (db, callback) {
+            db.collection(_this.collectionName).find({}).toArray(function (err, results) {
+              _assert2.default.equal(err, null);
+
+              resolve(results);
+            });
+          });
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+  }, {
+    key: 'find',
+    value: function find(query) {
+      var _this2 = this;
+
+      return new Promise(function (resolve, reject) {
+        try {
+          _this2.db.connect(function (db, callback) {
+            db.collection(_this2.collectionName).find({}).toArray(function (err, results) {
+              _assert2.default.equal(err, null);
+
+              resolve(results);
+            });
+          });
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+  }, {
+    key: 'insert',
+    value: function insert(items) {
+      var _this3 = this;
+
+      return new Promise(function (resolve, reject) {
+        try {
+          _this3.collection.insertMany(items, function (err, result) {
+            _assert2.default.equal(err, null);
             resolve();
           });
         } catch (e) {

@@ -8,8 +8,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _mongodb = require('mongodb');
 
-var _mongodb2 = _interopRequireDefault(_mongodb);
-
 var _assert = require('assert');
 
 var _assert2 = _interopRequireDefault(_assert);
@@ -27,21 +25,26 @@ var Database = function () {
     this.dbName = dbName ? dbName : 'test';
 
     this.db = null;
+    this.client = null;
 
-    this.connect();
+    this.callback = function () {};
   }
 
   _createClass(Database, [{
     key: 'connect',
-    value: function connect() {
+    value: function connect(callback) {
       var _this = this;
 
-      MongoClient.connect(this.url, function (err, client) {
+      _mongodb.MongoClient.connect(this.url, function (err, client) {
         _assert2.default.equal(null, err);
 
-        _this.db = client.db(_this.dbName);
+        var db = client.db(_this.dbName);
 
-        client.close();
+        // Callback is defined as parameter of this method.
+        callback(db, function () {
+          console.log(client);
+          client.close();
+        });
       });
     }
   }]);

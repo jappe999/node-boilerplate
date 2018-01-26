@@ -2,3 +2,11 @@ extends ../layouts/app.pug
 
 block app
   h1 List view
+
+  each question in questions
+    div.max-w-sm.rounded.overflow-hidden.shadow-lg
+      div.font-bold.text-xl.mb-2= question.title
+      p= question.description
+
+  else
+    h1 There are no questions yet.

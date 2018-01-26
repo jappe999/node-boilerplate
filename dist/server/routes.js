@@ -19,19 +19,18 @@ function routes(app) {
   var defaultOptions = { title: app.get('title') };
 
   app.get('/', function (req, res) {
-    var controller = new _index2.default(req, res, defaultOptions);
-    controller.index();
+    new _index2.default(req, res, defaultOptions).index();
   });
 
   // Crud for the questions.
   app.route('/questions').get(function (req, res) {
-    res.render('questions/index', defaultOptions);
+    new _questions2.default(req, res, defaultOptions).list();
   }).post(function (req, res) {
-    res.redirect('/questions');
+    new _questions2.default(req, res, defaultOptions).addNew();
   });
 
   app.get('/questions/:id/details', function (req, res) {
-    res.render('questions/index', defaultOptions);
+    new _questions2.default(req, res, defaultOptions).details();
   });
 
   // Register more routes here.

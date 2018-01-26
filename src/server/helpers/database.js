@@ -1,4 +1,4 @@
-import MongoDB from 'mongodb'
+import { MongoClient } from 'mongodb'
 import assert from 'assert'
 
 export default class Database {
@@ -8,17 +8,22 @@ export default class Database {
     this.dbName = dbName ? dbName : 'test'
 
     this.db = null
+    this.client = null
 
-    this.connect()
+    this.callback = function () { }
   }
 
-  connect() {
+  connect(callback) {
     MongoClient.connect(this.url, (err, client) => {
       assert.equal(null, err)
 
-      this.db = client.db(this.dbName)
+      const db = client.db(this.dbName)
 
-      client.close()
+      // Callback is defined as parameter of this method.
+      callback(db, function () {
+        console.log(client)
+        client.close()
+      })
     })
   }
 }

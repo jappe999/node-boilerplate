@@ -30,7 +30,6 @@ var WebServer = function () {
     value: function serve(PORT) {
       var _this = this;
 
-      // Set port if necessary.
       if (PORT) this.PORT = PORT;
 
       return new Promise(function (resolve, reject) {

@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@tailwind preflight;
+@tailwind utilities;
 @import 'variables';
 
 html, body {
   margin: 0;
-  background-color: $color-lightgrey;
-  font-family: 'Nunito', sans-serif;
+  background-color: config('colors.grey-lighter');
+  font-family: 'Roboto', sans-serif;
 }

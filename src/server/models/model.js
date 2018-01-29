@@ -41,6 +41,20 @@ export default class Model {
     })
   }
 
+  collection() {
+    return new Promise((resolve, reject) => {
+      try {
+        this.db.connect((db, callback) => {
+          const collection = db.collection(this.collectionName)
+
+          resolve(collection)
+        })
+      } catch (e) {
+        reject(e)
+      }
+    })
+  }
+
   insert(items) {
     return new Promise((resolve, reject) => {
       try {

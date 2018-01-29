@@ -1,12 +1,29 @@
 extends ../layouts/app.pug
 
 block app
-  h1 List view
+  h1 Questions
 
-  each question in questions
-    div.max-w-sm.rounded.overflow-hidden.shadow-lg
-      div.font-bold.text-xl.mb-2= question.title
-      p= question.description
+  form.mx-auto.mb-6(@submit.prevent='askQuestion', class='w-1/2')
+    div.flex.flex-row.w-full
+      input(v-model='question').p-3.shadow
+      button.bg-green.shadow.text-white.p-3 Ask!
 
-  else
-    h1 There are no questions yet.
+  div.mx-auto.mb-6.rounded.overflow-hidden.shadow-md(v-for='question in questions', class='w-1/2')
+    div.flex.flex-row
+      div
+        button.text-center.p-3.text-white.bg-green.block.w-full(@click='upvote(question)', title='Upvote')
+          small.block ++
+          small {{ question.upvotes }}
+        button.text-center.p-3.text-white.bg-red.w-full(@click='downvote(question)', title='Downvote')
+          small.block --
+          small {{ question.downvotes }}
+      div.font-bold.text-xl.p-3.mb-2 {{ question.question }}
+      button.float-right.text-xs.text-red(@click='delete(question)') Verwijderen
+
+    form.mb-6(@submit.prevent='addComment(question)')
+      div.flex.flex-row.w-full
+        input(v-model='question["comment"]').p-3.shadow
+        button.bg-green.shadow.text-white.p-3 Add comment
+
+
+    div(v-for='answer in question.answers') {{ answer.text }}

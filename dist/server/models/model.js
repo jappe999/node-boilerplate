@@ -65,15 +65,73 @@ var Model = function () {
       });
     }
   }, {
-    key: 'insert',
-    value: function insert(items) {
+    key: 'collection',
+    value: function collection() {
       var _this3 = this;
 
       return new Promise(function (resolve, reject) {
         try {
-          _this3.collection.insertMany(items, function (err, result) {
-            _assert2.default.equal(err, null);
-            resolve();
+          _this3.db.connect(function (db, callback) {
+            var collection = db.collection(_this3.collectionName);
+
+            resolve(collection);
+          });
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+  }, {
+    key: 'insert',
+    value: function insert(items) {
+      var _this4 = this;
+
+      return new Promise(function (resolve, reject) {
+        try {
+          _this4.db.connect(function (db, callback) {
+            db.collection(_this4.collectionName).insertMany(items, function (err, results) {
+              _assert2.default.equal(err, null);
+
+              resolve(results);
+            });
+          });
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+  }, {
+    key: 'update',
+    value: function update(selectOn, newItem) {
+      var _this5 = this;
+
+      return new Promise(function (resolve, reject) {
+        try {
+          _this5.db.connect(function (db, callback) {
+            db.collection(_this5.collectionName).updateOne(selectOn, newItem, function (err, result) {
+              _assert2.default.equal(err, null);
+
+              resolve(result);
+            });
+          });
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+  }, {
+    key: 'delete',
+    value: function _delete(item) {
+      var _this6 = this;
+
+      return new Promise(function (resolve, reject) {
+        try {
+          _this6.db.connect(function (db, callback) {
+            db.collection(_this6.collectionName).deleteOne(item, function (err, result) {
+              _assert2.default.equal(err, null);
+
+              resolve(result);
+            });
           });
         } catch (e) {
           reject(e);

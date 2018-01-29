@@ -20,7 +20,7 @@ var Database = function () {
   function Database(dbName) {
     _classCallCheck(this, Database);
 
-    this.url = 'mongodb://mongodb.dev:27018';
+    this.url = 'mongodb://127.0.0.1:27018';
 
     this.dbName = dbName ? dbName : 'test';
 

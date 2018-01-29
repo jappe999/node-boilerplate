@@ -18,6 +18,9 @@ var WebServer = function () {
 
     this.app = express();
 
+    this.app.use(express.json());
+    this.app.use(express.urlencoded());
+
     // You can also change this later.
     this.PORT = PORT;
 

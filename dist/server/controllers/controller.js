@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -14,11 +14,21 @@ var Controller = function () {
 
     this.req = req;
     this.res = res;
-    this.options = options;
+    this.options = Object.assign(options, { userId: this.req.session._id });
   }
 
   _createClass(Controller, [{
-    key: "error",
+    key: 'verifyUser',
+    value: function verifyUser() {
+      // Nope. Not secure.
+      if (this.req.session._id) {
+        return this.req.session._id !== '';
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: 'error',
     value: function error(errorCode, errorMessage) {
       this.res.status(errorCode).send(errorMessage);
     }

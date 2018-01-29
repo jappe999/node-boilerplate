@@ -3,11 +3,7 @@ extends ../layouts/app.pug
 block app
   div.flex.justify-center
     form(method='post').w-auto.rounded.shadow-lg.py-6.px-8.mt-4.bg-grey-darker
-      h1.block Register
-      div.mt-4.mb-1
-        label.block Name
-        input(type='text', name='name').w-full.p-3.bg-white
-
+      h1.block Login
       div.mt-4.mb-1
         label.block E-mail
         input(type='email', name='email').w-full.p-3.bg-white
@@ -16,11 +12,8 @@ block app
         label.block Password
         input(type='password', name='password').w-full.p-3.bg-white
 
-      div.mt-4.mb-1
-        label.block Name
-        select(name='role').w-full.p-3.bg-white
-          option(value='user') User
-          option(value='admin') Admin
+      div.mt-4.mb-2
+        input(type='submit', value='Login').p-3.bg-green.float-right
 
       div.mt-4.mb-2
-        input(type='submit', value='Register').p-3.bg-green.float-right
+        a(href='/register').float-left Register

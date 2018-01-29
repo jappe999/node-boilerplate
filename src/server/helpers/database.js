@@ -3,7 +3,7 @@ import assert from 'assert'
 
 export default class Database {
   constructor(dbName) {
-    this.url = 'mongodb://mongodb.dev:27018'
+    this.url = 'mongodb://127.0.0.1:27018'
 
     this.dbName = dbName ? dbName : 'test'
 

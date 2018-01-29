@@ -1,5 +1,6 @@
-# node-boilerplate
-Boilerplate for a school assignment
+Does not work
+
+
 
 ## Requirements
 - Git (duh)
